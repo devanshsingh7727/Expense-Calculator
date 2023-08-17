@@ -2,7 +2,12 @@
   "name": "Expense Tracker",
   "version": "1.0.0",
   "private": true,
-  "description": "Latest Expense Tracker",
+  "author": "Devansh singh",
+  "description": "Devansh Singh",
+  "engines": {
+    "node": "14 || 15 || 16",
+    "npm": ">=6"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
