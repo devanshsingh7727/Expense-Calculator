@@ -150,7 +150,7 @@ function MyApp({
           />
           {/* <link rel='shortcut icon' href={favicon.src} /> */}
           {/* <link rel='apple-touch-icon' sizes='76x76' href={appleIcon.src} /> */}
-          <title>Expense Calculator</title>
+          <title>Expense Calculator </title>
         </Head>
         <Main Component={Component} pageProps={pageProps} />
       </CacheProvider>
