@@ -1,13 +1,8 @@
 {
-  "name": "Expense Tracker",
+  "name": "ET",
   "version": "1.0.0",
-  "private": true,
   "author": "Devansh singh",
   "description": "Devansh Singh",
-  "engines": {
-    "node": "18",
-    "npm": ">=6"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
