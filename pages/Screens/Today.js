@@ -15,20 +15,22 @@ function Today({ LastMonthSpend }) {
     return Math.ceil(((val1 - val2) / ((val1 + val2) / 2)) * 100);
   }
   useEffect(() => {
-    let DataMain = localStorage.getItem('data');
-    if (DataMain) {
-      let FinalData = JSON.parse(DataMain).filter(
-        (rep) =>
-          dayjs(rep.SelectedDate).format('YYYY-MM-DD') ===
-          dayjs(new Date()).format('YYYY-MM-DD')
-      );
-      let LastMonth = JSON.parse(DataMain).filter(
-        (rep) =>
-          dayjs(rep.SelectedDate).format('MM') ===
-          dayjs(new Date()).subtract(1, 'month').format('MM')
-      );
-      setLastMonthData(LastMonth);
-      setData(FinalData);
+    if (typeof window !== 'undefined') {
+      let DataMain = localStorage.getItem('data');
+      if (DataMain) {
+        let FinalData = JSON.parse(DataMain).filter(
+          (rep) =>
+            dayjs(rep.SelectedDate).format('YYYY-MM-DD') ===
+            dayjs(new Date()).format('YYYY-MM-DD')
+        );
+        let LastMonth = JSON.parse(DataMain).filter(
+          (rep) =>
+            dayjs(rep.SelectedDate).format('MM') ===
+            dayjs(new Date()).subtract(1, 'month').format('MM')
+        );
+        setLastMonthData(LastMonth);
+        setData(FinalData);
+      }
     }
   }, []);
   const Spend = (val) => {

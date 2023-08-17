@@ -93,39 +93,41 @@ function Today() {
     return CustomArray;
   };
   useEffect(() => {
-    let DataMain = localStorage.getItem('data');
-    if (DataMain) {
-      setData(JSON.parse(DataMain));
-      let WeekFilterData = JSON.parse(DataMain)
-        .filter((rep) => dayjs(new Date()).isSame(rep.SelectedDate, 'week'))
-        .reduce((groups, item) => {
-          const group = groups[item.catSelected] || [];
-          group.push(item);
-          groups[item.catSelected] = group;
-          return groups;
-        }, {});
-      setWeekdata(WeekFilterData);
+    if (typeof window !== 'undefined') {
+      let DataMain = localStorage.getItem('data');
+      if (DataMain) {
+        setData(JSON.parse(DataMain));
+        let WeekFilterData = JSON.parse(DataMain)
+          .filter((rep) => dayjs(new Date()).isSame(rep.SelectedDate, 'week'))
+          .reduce((groups, item) => {
+            const group = groups[item.catSelected] || [];
+            group.push(item);
+            groups[item.catSelected] = group;
+            return groups;
+          }, {});
+        setWeekdata(WeekFilterData);
 
-      let MonthFilterData = JSON.parse(DataMain)
-        .filter((rep) => dayjs(new Date()).isSame(rep.SelectedDate, 'month'))
-        .reduce((groups, item) => {
-          const group = groups[item.catSelected] || [];
-          group.push(item);
-          groups[item.catSelected] = group;
-          return groups;
-        }, {});
-      setMonthData(MonthFilterData);
+        let MonthFilterData = JSON.parse(DataMain)
+          .filter((rep) => dayjs(new Date()).isSame(rep.SelectedDate, 'month'))
+          .reduce((groups, item) => {
+            const group = groups[item.catSelected] || [];
+            group.push(item);
+            groups[item.catSelected] = group;
+            return groups;
+          }, {});
+        setMonthData(MonthFilterData);
 
-      let YearFilterData = JSON.parse(DataMain)
-        .filter((rep) => dayjs(new Date()).isSame(rep.SelectedDate, 'year'))
-        .reduce((groups, item) => {
-          const group = groups[item.catSelected] || [];
-          group.push(item);
-          groups[item.catSelected] = group;
-          return groups;
-        }, {});
-      console.log('YearFilterData', YearFilterData);
-      setYearData(YearFilterData);
+        let YearFilterData = JSON.parse(DataMain)
+          .filter((rep) => dayjs(new Date()).isSame(rep.SelectedDate, 'year'))
+          .reduce((groups, item) => {
+            const group = groups[item.catSelected] || [];
+            group.push(item);
+            groups[item.catSelected] = group;
+            return groups;
+          }, {});
+        console.log('YearFilterData', YearFilterData);
+        setYearData(YearFilterData);
+      }
     }
   }, []);
   const buttonHandler = (e) => {

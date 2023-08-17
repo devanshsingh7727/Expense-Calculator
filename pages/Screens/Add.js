@@ -22,9 +22,11 @@ function Today() {
   };
   console.log('formva', FormValue);
   useEffect(() => {
-    let Data = localStorage.getItem('data');
-    if (Data) {
-      settotalData(JSON.parse(Data));
+    if (typeof window !== 'undefined') {
+      let Data = localStorage.getItem('data');
+      if (Data) {
+        settotalData(JSON.parse(Data));
+      }
     }
   }, [localStorage.getItem('data')]);
   useEffect(() => {
