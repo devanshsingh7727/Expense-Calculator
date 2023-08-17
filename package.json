@@ -5,7 +5,7 @@
   "author": "Devansh singh",
   "description": "Devansh Singh",
   "engines": {
-    "node": "14 || 15 || 16",
+    "node": "18",
     "npm": ">=6"
   },
   "scripts": {
