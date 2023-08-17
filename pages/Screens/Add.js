@@ -28,7 +28,7 @@ function Today() {
         settotalData(JSON.parse(Data));
       }
     }
-  }, [localStorage.getItem('data')]);
+  }, []);
   useEffect(() => {
     setCatArray([
       {
@@ -135,7 +135,7 @@ function Today() {
     const { Amount, Note, SelectedDate, catSelected } = FormValue;
     if (Amount && Note && SelectedDate && catSelected) {
       let FinalValue = { id: 'id' + new Date().getTime(), ...FormValue };
-      localStorage.setItem(
+      window.localStorage.setItem(
         'data',
         JSON.stringify([, ...totalData, FinalValue])
       );
