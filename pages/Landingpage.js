@@ -9,6 +9,8 @@ import All from './Screens/All';
 import Today from './Screens/Today';
 function Landingpage() {
   const [BottomNavigationState, setBottomNavigationState] = useState('TODAY');
+  console.log('devanh singh test', process.env.Test);
+  console.log('devanh singh FINAL', process.env.FINAL);
 
   return (
     <>

@@ -119,14 +119,7 @@ function Main({ Component, pageProps }) {
     </MDBox>
   );
 
-  return direction === 'rtl' ? (
-    <CacheProvider value={rtlCache}>
-      <ThemeProvider theme={true ? themeDarkRTL : themeRTL}>
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </CacheProvider>
-  ) : (
+  return (
     <ThemeProvider theme={true ? themeDark : theme}>
       <CssBaseline />
       <Component {...pageProps} />
