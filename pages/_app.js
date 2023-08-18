@@ -136,13 +136,17 @@ function MyApp({
     <MaterialUIControllerProvider>
       <CacheProvider value={emotionCache}>
         <Head>
-          {/* <meta name='viewport' content='width=device-width, initial-scale=1' /> */}
+          <meta name='viewport' content='width=device-width, initial-scale=1' />
           <meta
             name='viewport'
             content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
           />
-          {/* <link rel='shortcut icon' href={favicon.src} /> */}
-          {/* <link rel='apple-touch-icon' sizes='76x76' href={appleIcon.src} /> */}
+          <link rel='shortcut icon' href={'/icon-192x192.png'} />
+          <link
+            rel='apple-touch-icon'
+            sizes='76x76'
+            href={'/icon-192x192.png'}
+          />
           <title>Expense Calculator </title>
         </Head>
         <Main Component={Component} pageProps={pageProps} />

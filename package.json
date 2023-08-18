@@ -2,7 +2,7 @@
   "name": "ET",
   "version": "1.0.0",
   "author": "Devansh singh",
-  "description": "Devansh Singh",
+  "description": "Effortlessly manage your finances with our Expense Tracker app! Keep a detailed record of all your expenses while enjoying the benefits of AI-powered suggestions. Our app analyzes your spending patterns and provides personalized recommendations to help you make smarter financial decisions. Take control of your budget and savings goals like never before.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
