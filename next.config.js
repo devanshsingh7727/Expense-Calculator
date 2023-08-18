@@ -27,6 +27,9 @@ module.exports = withTM(
           },
         ];
       },
+      env: {
+        SERVER: process.env.FINAL,
+      },
     },
     {
       eslint: {
