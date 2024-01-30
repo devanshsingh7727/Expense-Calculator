@@ -13,13 +13,7 @@ import MDBox from "../components/MDBox";
 import MDAvatar from "../components/MDAvatar";
 import MDTypography from "../components/MDTypography";
 import axios from "axios";
-const connection = axios.create({
-  baseURL: "/api",
-  //for timeout issue
-  // timeout: 60000,
-  // TODO Test impact of this setting.
-  // decompress: false
-});
+import Connection from "../lib/Connection";
 
 function Landingpage() {
   const [BottomNavigationState, setBottomNavigationState] = useState("TODAY");
@@ -31,7 +25,7 @@ function Landingpage() {
   });
   console.log("session", session);
   const Test = () => {
-    connection.get("/test");
+    Connection.get("/test");
   };
   return (
     <>
@@ -49,9 +43,9 @@ function Landingpage() {
       >
         <span
           onClick={async () => {
-            Test();
-            // await signOut("google");
-            // Router.push("/Access");
+            // Test();
+            await signOut("google");
+            Router.push("/Access");
           }}
           style={{
             display: "flex",

@@ -7,8 +7,7 @@ handler.use(middleware);
 
 handler.get(async (req, res) => {
   try {
-    const data = await req.db.collection("digitalProducts").find().toArray();
-    console.log("data", data);
+    const data = await req.db.collection("planets").find().toArray();
     // console.log(req.db);
     return res.status(200).json({ message: "Data found", data });
   } catch (err) {
