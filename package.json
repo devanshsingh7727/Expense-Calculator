@@ -58,6 +58,7 @@
     "regenerator-runtime": "0.13.9",
     "stylis": "4.0.13",
     "stylis-plugin-rtl": "2.1.1",
+    "swr": "^2.2.4",
     "uuid": "8.3.2",
     "yup": "0.32.11"
   },

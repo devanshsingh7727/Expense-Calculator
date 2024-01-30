@@ -1,21 +1,21 @@
-import { Divider, Grid } from '@mui/material';
-import dayjs from 'dayjs';
-import React, { useEffect, useState } from 'react';
-import { date } from 'yup';
-import MDBox from '../../components/MDBox';
-import MDButton from '../../components/MDButton';
-import DefaultStatisticsCard from '../../examples/Cards/StatisticsCards/DefaultStatisticsCard';
-import VerticalBarChart from '../../examples/Charts/BarCharts/VerticalBarChart';
-import AllCustomListWeek from '../../examples/Lists/CategoriesList/AllCustomListWeek';
-import AllCustomListMonth from '../../examples/Lists/CategoriesList/AllCustomListMonth';
-import AllCustomListYear from '../../examples/Lists/CategoriesList/AllCustomListYear';
+import { Divider, Grid } from "@mui/material";
+import dayjs from "dayjs";
+import React, { useEffect, useState } from "react";
+import { date } from "yup";
+import MDBox from "../../components/MDBox";
+import MDButton from "../../components/MDButton";
+import DefaultStatisticsCard from "../../examples/Cards/StatisticsCards/DefaultStatisticsCard";
+import VerticalBarChart from "../../examples/Charts/BarCharts/VerticalBarChart";
+import AllCustomListWeek from "../../examples/Lists/CategoriesList/AllCustomListWeek";
+import AllCustomListMonth from "../../examples/Lists/CategoriesList/AllCustomListMonth";
+import AllCustomListYear from "../../examples/Lists/CategoriesList/AllCustomListYear";
 
-function Today() {
+function Today({ Expenses }) {
   const [Data, setData] = useState([]);
   const [Weekdata, setWeekdata] = useState([]);
   const [MonthData, setMonthData] = useState([]);
   const [YearData, setYearData] = useState([]);
-  const [controller, setcontroller] = useState('week');
+  const [controller, setcontroller] = useState("week");
   const [TotalAmount, setTotalAmount] = useState();
   useEffect(() => {
     let initialValue = 0;
@@ -40,7 +40,7 @@ function Today() {
       const SelectedDate = dayjs(item.SelectedDate).day();
       // console.log();
       const group = groups[SelectedDate] || [];
-      if (dayjs(new Date()).isSame(item.SelectedDate, 'week')) {
+      if (dayjs(new Date()).isSame(item.SelectedDate, "week")) {
         group.push(item);
         groups[SelectedDate] = group;
       }
@@ -75,7 +75,7 @@ function Today() {
       return groups;
     }, {});
     let CustomArray = [];
-    console.log('FilterArray', FilterArray);
+    console.log("FilterArray", FilterArray);
     Object.entries(FilterArray).map((rep, i) => {
       if (parseInt(rep[0]) === 2019) {
         CustomArray[0] = Spend(rep[1]);
@@ -89,45 +89,42 @@ function Today() {
         CustomArray[4] = Spend(rep[1]);
       }
     });
-    console.log('CustomArray', CustomArray);
+    console.log("CustomArray", CustomArray);
     return CustomArray;
   };
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      let DataMain = localStorage.getItem('data');
-      if (DataMain) {
-        setData(JSON.parse(DataMain));
-        let WeekFilterData = JSON.parse(DataMain)
-          .filter((rep) => dayjs(new Date()).isSame(rep.SelectedDate, 'week'))
-          .reduce((groups, item) => {
-            const group = groups[item.catSelected] || [];
-            group.push(item);
-            groups[item.catSelected] = group;
-            return groups;
-          }, {});
-        setWeekdata(WeekFilterData);
+    if (Expenses) {
+      setData(Expenses);
+      let WeekFilterData = Expenses.filter((rep) =>
+        dayjs(new Date()).isSame(rep.SelectedDate, "week")
+      ).reduce((groups, item) => {
+        const group = groups[item.catSelected] || [];
+        group.push(item);
+        groups[item.catSelected] = group;
+        return groups;
+      }, {});
+      setWeekdata(WeekFilterData);
 
-        let MonthFilterData = JSON.parse(DataMain)
-          .filter((rep) => dayjs(new Date()).isSame(rep.SelectedDate, 'month'))
-          .reduce((groups, item) => {
-            const group = groups[item.catSelected] || [];
-            group.push(item);
-            groups[item.catSelected] = group;
-            return groups;
-          }, {});
-        setMonthData(MonthFilterData);
+      let MonthFilterData = Expenses.filter((rep) =>
+        dayjs(new Date()).isSame(rep.SelectedDate, "month")
+      ).reduce((groups, item) => {
+        const group = groups[item.catSelected] || [];
+        group.push(item);
+        groups[item.catSelected] = group;
+        return groups;
+      }, {});
+      setMonthData(MonthFilterData);
 
-        let YearFilterData = JSON.parse(DataMain)
-          .filter((rep) => dayjs(new Date()).isSame(rep.SelectedDate, 'year'))
-          .reduce((groups, item) => {
-            const group = groups[item.catSelected] || [];
-            group.push(item);
-            groups[item.catSelected] = group;
-            return groups;
-          }, {});
-        console.log('YearFilterData', YearFilterData);
-        setYearData(YearFilterData);
-      }
+      let YearFilterData = Expenses.filter((rep) =>
+        dayjs(new Date()).isSame(rep.SelectedDate, "year")
+      ).reduce((groups, item) => {
+        const group = groups[item.catSelected] || [];
+        group.push(item);
+        groups[item.catSelected] = group;
+        return groups;
+      }, {});
+      console.log("YearFilterData", YearFilterData);
+      setYearData(YearFilterData);
     }
   }, []);
   const buttonHandler = (e) => {
@@ -140,11 +137,11 @@ function Today() {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4}>
           <DefaultStatisticsCard
-            title='Total spend'
-            count={`${parseInt(TotalAmount)?.toLocaleString('en-IN', {
+            title="Total spend"
+            count={`${parseInt(TotalAmount)?.toLocaleString("en-IN", {
               maximumFractionDigits: 2,
-              style: 'currency',
-              currency: 'INR',
+              style: "currency",
+              currency: "INR",
             })}`}
             // percentage={{
             //   color: 'success',
@@ -159,64 +156,64 @@ function Today() {
           />
         </Grid>
         <Grid item xs={12} sm={4} my={2}>
-          {controller === 'week' ? (
+          {controller === "week" ? (
             <VerticalBarChart
-              icon={{ color: 'dark', component: 'leaderboard' }}
-              title='Statistics'
-              description='Spend related to week average'
+              icon={{ color: "dark", component: "leaderboard" }}
+              title="Statistics"
+              description="Spend related to week average"
               chart={{
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
                 datasets: [
                   {
-                    label: 'Spend this week',
-                    color: 'light',
+                    label: "Spend this week",
+                    color: "dark",
                     data: CalculateWeek(Data),
                   },
                 ],
               }}
             />
-          ) : controller === 'month' ? (
+          ) : controller === "month" ? (
             <VerticalBarChart
-              icon={{ color: 'dark', component: 'leaderboard' }}
-              title='Statistics'
+              icon={{ color: "dark", component: "leaderboard" }}
+              title="Statistics"
               // description='Sales related to age average'
-              description='Spend related to Month average'
+              description="Spend related to Month average"
               chart={{
                 labels: [
-                  'Jan',
-                  'Feb',
-                  'Mar',
-                  'Apr',
-                  'May',
-                  'Jun',
-                  'Jul',
-                  'Aug',
-                  'Sep',
-                  'Oct',
-                  'Nov',
-                  'Dec',
+                  "Jan",
+                  "Feb",
+                  "Mar",
+                  "Apr",
+                  "May",
+                  "Jun",
+                  "Jul",
+                  "Aug",
+                  "Sep",
+                  "Oct",
+                  "Nov",
+                  "Dec",
                 ],
                 datasets: [
                   {
-                    label: 'Spend this month',
-                    color: 'light',
+                    label: "Spend this month",
+                    color: "light",
                     data: CalculateMonth(Data),
                   },
                 ],
               }}
             />
           ) : (
-            controller === 'year' && (
+            controller === "year" && (
               <VerticalBarChart
-                icon={{ color: 'dark', component: 'leaderboard' }}
-                title='Statistics'
-                description='Spend related to Year average'
+                icon={{ color: "dark", component: "leaderboard" }}
+                title="Statistics"
+                description="Spend related to Year average"
                 chart={{
                   labels: [2019, 2020, 2021, 2022, 2023],
                   datasets: [
                     {
-                      label: 'Spend this year',
-                      color: 'light',
+                      label: "Spend this year",
+                      color: "light",
                       data: CalculateYear(Data),
                     },
                   ],
@@ -227,44 +224,47 @@ function Today() {
         </Grid>
         <Grid item xs={12} sm={4} mb={8}>
           <MDButton
-            variant='outlined'
-            size='small'
-            style={{ margin: '0px 10px' }}
+            color="dark"
+            variant="outlined"
+            size="small"
+            style={{ margin: "0px 10px" }}
             value={controller}
-            name='week'
+            name="week"
             onClick={buttonHandler}
           >
             Week
           </MDButton>
           <MDButton
-            variant='outlined'
-            size='small'
-            style={{ margin: '0px 10px' }}
+            color="dark"
+            variant="outlined"
+            size="small"
+            style={{ margin: "0px 10px" }}
             value={controller}
-            name='month'
+            name="month"
             onClick={buttonHandler}
           >
             Month
           </MDButton>
           <MDButton
-            variant='outlined'
-            size='small'
-            style={{ margin: '0px 10px' }}
+            color="dark"
+            variant="outlined"
+            size="small"
+            style={{ margin: "0px 10px" }}
             value={controller}
-            name='year'
+            name="year"
             onClick={buttonHandler}
           >
             Year
           </MDButton>
           <Divider />
 
-          {controller === 'week' ? (
-            <AllCustomListWeek title='Week' categories={Weekdata} />
-          ) : controller === 'month' ? (
-            <AllCustomListMonth title='Month' categories={MonthData} />
+          {controller === "week" ? (
+            <AllCustomListWeek title="Week" categories={Weekdata} />
+          ) : controller === "month" ? (
+            <AllCustomListMonth title="Month" categories={MonthData} />
           ) : (
-            controller === 'year' && (
-              <AllCustomListYear title='Year' categories={YearData} />
+            controller === "year" && (
+              <AllCustomListYear title="Year" categories={YearData} />
             )
           )}
         </Grid>

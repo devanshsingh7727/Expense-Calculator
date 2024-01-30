@@ -2,20 +2,23 @@ import AddIcon from "@mui/icons-material/Add";
 import AllInboxIcon from "@mui/icons-material/AllInbox";
 import TodayIcon from "@mui/icons-material/Today";
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
-import dayjs from "dayjs";
-import React, { useEffect, useState } from "react";
+import { signOut, useSession } from "next-auth/react";
+import Router from "next/router";
+import React, { useState } from "react";
+import useSWR from "swr";
+import MDAvatar from "../components/MDAvatar";
+import MDBox from "../components/MDBox";
+import MDTypography from "../components/MDTypography";
+import connection from "../lib/Connection";
 import Add from "./Screens/Add";
 import All from "./Screens/All";
 import Today from "./Screens/Today";
-import { signOut, useSession } from "next-auth/react";
-import Router from "next/router";
-import MDBox from "../components/MDBox";
-import MDAvatar from "../components/MDAvatar";
-import MDTypography from "../components/MDTypography";
-import axios from "axios";
-import Connection from "../lib/Connection";
+import MDButton from "../components/MDButton";
+import { toast, ToastContainer } from "react-toastify";
+import { deleteExpenseObject } from "../lib/utils";
 
 function Landingpage() {
+  const fetcher = (url) => connection.get(url).then((res) => res.data);
   const [BottomNavigationState, setBottomNavigationState] = useState("TODAY");
   const { data: session } = useSession({
     required: true,
@@ -23,9 +26,20 @@ function Landingpage() {
       Router.push("/Access");
     },
   });
-  console.log("session", session);
-  const Test = () => {
-    Connection.get("/test");
+  const {
+    data: Expenses,
+    error: ExpensesError,
+    mutate,
+  } = useSWR(session?.user?._id && `/Expense?id=${session.user._id}`, fetcher);
+  console.log("Expenses", Expenses);
+  const handleClear = async (id) => {
+    let data = {
+      id,
+      userId: session.user._id,
+    };
+    await deleteExpenseObject(data);
+    await mutate();
+    toast.success("Deleted!");
   };
   return (
     <>
@@ -43,7 +57,6 @@ function Landingpage() {
       >
         <span
           onClick={async () => {
-            // Test();
             await signOut("google");
             Router.push("/Access");
           }}
@@ -65,10 +78,14 @@ function Landingpage() {
           </MDTypography>
         </span>
       </MDBox>
-      {BottomNavigationState === "TODAY" && <Today />}
+      {BottomNavigationState === "TODAY" && (
+        <Today Expenses={Expenses?.data} handleClear={handleClear} />
+      )}
 
-      {BottomNavigationState === "ALL" && <All />}
-      {BottomNavigationState === "ADD" && <Add />}
+      {BottomNavigationState === "ALL" && <All Expenses={Expenses?.data} />}
+      {BottomNavigationState === "ADD" && (
+        <Add mutate={mutate} Expenses={Expenses?.data} />
+      )}
 
       <Paper
         sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
