@@ -22,7 +22,7 @@ function Basic() {
     if (session) {
       Router.push("/Landingpage");
     }
-  });
+  }, [session]);
   return (
     <>
       <MDBox

@@ -1,22 +1,23 @@
 import AddIcon from "@mui/icons-material/Add";
 import AllInboxIcon from "@mui/icons-material/AllInbox";
+import SendIcon from "@mui/icons-material/Send";
 import TodayIcon from "@mui/icons-material/Today";
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 import { signOut, useSession } from "next-auth/react";
 import Router from "next/router";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import useSWR from "swr";
 import MDAvatar from "../components/MDAvatar";
 import MDBox from "../components/MDBox";
+import MDInput from "../components/MDInput";
 import MDTypography from "../components/MDTypography";
 import connection from "../lib/Connection";
+import { deleteExpenseObject } from "../lib/utils";
 import Add from "./Screens/Add";
 import All from "./Screens/All";
 import Today from "./Screens/Today";
-import MDButton from "../components/MDButton";
-import { toast, ToastContainer } from "react-toastify";
-import { deleteExpenseObject } from "../lib/utils";
-
 function Landingpage() {
   const fetcher = (url) => connection.get(url).then((res) => res.data);
   const [BottomNavigationState, setBottomNavigationState] = useState("TODAY");
@@ -91,6 +92,19 @@ function Landingpage() {
         sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
         elevation={3}
       >
+        <MDInput
+          type="text"
+          label="Enter Expense..."
+          fullWidth
+          InputProps={{
+            endAdornment: (
+              <IconButton color="success">
+                <SendIcon />
+              </IconButton>
+            ),
+          }}
+        />
+
         <BottomNavigation
           showLabels
           value={BottomNavigationState}

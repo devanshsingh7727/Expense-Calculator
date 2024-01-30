@@ -29,6 +29,8 @@ module.exports = withTM(
       },
       env: {
         SERVER: process.env.FINAL,
+        MONGODB_URI:
+          "mongodb+srv://devanshsingh0808:Test1234@cluster0.knyitls.mongodb.net/sample_guides?retryWrites=true&w=majority",
       },
     },
     {
