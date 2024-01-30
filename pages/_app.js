@@ -1,41 +1,41 @@
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useEffect, useMemo, useState } from 'react';
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useEffect, useMemo, useState } from "react";
+import { SessionProvider } from "next-auth/react";
+import createCache from "@emotion/cache";
 
-import createCache from '@emotion/cache';
+import { CacheProvider } from "@emotion/react";
 
-import { CacheProvider } from '@emotion/react';
+import CssBaseline from "@mui/material/CssBaseline";
+import Icon from "@mui/material/Icon";
+import { ThemeProvider } from "@mui/material/styles";
 
-import CssBaseline from '@mui/material/CssBaseline';
-import Icon from '@mui/material/Icon';
-import { ThemeProvider } from '@mui/material/styles';
+import "@fullcalendar/common/main.css";
+import "@fullcalendar/daygrid/main.css";
+import "@fullcalendar/timegrid/main.css";
 
-import '@fullcalendar/common/main.css';
-import '@fullcalendar/daygrid/main.css';
-import '@fullcalendar/timegrid/main.css';
+import MDBox from "/components/MDBox";
 
-import MDBox from '/components/MDBox';
+import theme from "/assets/theme";
+import themeRTL from "/assets/theme/theme-rtl";
+import themeDark from "/assets/theme-dark";
+import themeDarkRTL from "/assets/theme-dark/theme-rtl";
 
-import theme from '/assets/theme';
-import themeRTL from '/assets/theme/theme-rtl';
-import themeDark from '/assets/theme-dark';
-import themeDarkRTL from '/assets/theme-dark/theme-rtl';
-
-import rtlPlugin from 'stylis-plugin-rtl';
+import rtlPlugin from "stylis-plugin-rtl";
 
 import {
   MaterialUIControllerProvider,
   setMiniSidenav,
   setOpenConfigurator,
   useMaterialUIController,
-} from '/context';
+} from "/context";
 
 // import appleIcon from '/assets/images/apple-icon.png';
 // import favicon from '/assets/images/favicon.png';
 // import brandDark from '/assets/images/logo-ct-dark.png';
 // import brandWhite from '/assets/images/logo-ct.png';
 
-const clientSideEmotionCache = createCache({ key: 'css', prepend: true });
+const clientSideEmotionCache = createCache({ key: "css", prepend: true });
 
 function Main({ Component, pageProps }) {
   const [controller, dispatch] = useMaterialUIController();
@@ -55,7 +55,7 @@ function Main({ Component, pageProps }) {
 
   useMemo(() => {
     const cacheRtl = createCache({
-      key: 'rtl',
+      key: "rtl",
       stylisPlugins: [rtlPlugin],
     });
 
@@ -83,7 +83,7 @@ function Main({ Component, pageProps }) {
 
   // Setting the dir attribute for the body element
   useEffect(() => {
-    document.body.setAttribute('dir', direction);
+    document.body.setAttribute("dir", direction);
   }, [direction]);
 
   // Setting page scroll to 0 when changing the route
@@ -97,32 +97,34 @@ function Main({ Component, pageProps }) {
 
   const configsButton = (
     <MDBox
-      display='flex'
-      justifyContent='center'
-      alignItems='center'
-      width='3.25rem'
-      height='3.25rem'
-      bgColor='white'
-      shadow='sm'
-      borderRadius='50%'
-      position='fixed'
-      right='2rem'
-      bottom='2rem'
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      width="3.25rem"
+      height="3.25rem"
+      bgColor="white"
+      shadow="sm"
+      borderRadius="50%"
+      position="fixed"
+      right="2rem"
+      bottom="2rem"
       zIndex={99}
-      color='dark'
-      sx={{ cursor: 'pointer' }}
+      color="dark"
+      sx={{ cursor: "pointer" }}
       onClick={handleConfiguratorOpen}
     >
-      <Icon fontSize='small' color='inherit'>
+      <Icon fontSize="small" color="inherit">
         settings
       </Icon>
     </MDBox>
   );
 
   return (
-    <ThemeProvider theme={true ? themeDark : theme}>
+    <ThemeProvider theme={false ? themeDark : theme}>
       <CssBaseline />
-      <Component {...pageProps} />
+      <SessionProvider>
+        <Component {...pageProps} />
+      </SessionProvider>
     </ThemeProvider>
   );
 }
@@ -136,16 +138,16 @@ function MyApp({
     <MaterialUIControllerProvider>
       <CacheProvider value={emotionCache}>
         <Head>
-          <meta name='viewport' content='width=device-width, initial-scale=1' />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta
-            name='viewport'
-            content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
           />
-          <link rel='shortcut icon' href={'/icon-192x192.png'} />
+          <link rel="shortcut icon" href={"/icon-192x192.png"} />
           <link
-            rel='apple-touch-icon'
-            sizes='76x76'
-            href={'/icon-192x192.png'}
+            rel="apple-touch-icon"
+            sizes="76x76"
+            href={"/icon-192x192.png"}
           />
           <title>Expense Calculator </title>
         </Head>
