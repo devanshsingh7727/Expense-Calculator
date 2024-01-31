@@ -15,7 +15,9 @@ export const authOptions = {
     async signIn({ user, account, profile }) {
       try {
         const res = await fetch(
-          "http://localhost:3000/api/socialLoginRegister",
+          process.env.NODE_ENV === "development"
+            ? "http://localhost:3000/api/socialLoginRegister"
+            : "expense-calculator-devansh.vercel.app/api/socialLoginRegister",
           {
             method: "POST",
             headers: {
