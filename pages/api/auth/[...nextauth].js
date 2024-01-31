@@ -17,7 +17,7 @@ export const authOptions = {
         const res = await fetch(
           process.env.NODE_ENV === "development"
             ? "http://localhost:3000/api/socialLoginRegister"
-            : "expense-calculator-devansh.vercel.app/api/socialLoginRegister",
+            : "https://expense-calculator-devansh.vercel.app/api/socialLoginRegister",
           {
             method: "POST",
             headers: {
