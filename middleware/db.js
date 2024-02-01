@@ -6,7 +6,9 @@ import { MongoClient } from "mongodb";
  * during API Route usage.
  */
 
-const uri = process.env.MONGODB_URI;
+const uri =
+  "mongodb+srv://devanshsingh0808:Test1234@cluster0.knyitls.mongodb.net/sample_guides";
+
 const options = {
   useUnifiedTopology: true,
   useNewUrlParser: true,
