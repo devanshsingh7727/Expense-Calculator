@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import connection from "../../../lib/Connection";
 let customData = {};
 export const authOptions = {
+  secret: "devansh_singh",
   // Configure one or more authentication providers
   providers: [
     GoogleProvider({
