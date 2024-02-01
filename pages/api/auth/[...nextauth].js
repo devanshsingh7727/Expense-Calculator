@@ -1,15 +1,13 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import connection from "../../../lib/Connection";
 let customData = {};
 export const authOptions = {
-  secret: "devansh_singh",
+  secret: process.env.NEXTAUTH_URL,
   // Configure one or more authentication providers
   providers: [
     GoogleProvider({
-      clientId:
-        "773464006916-ungru9s12nsa7cio3ove4f9qrhur379n.apps.googleusercontent.com",
-      clientSecret: "1VrX5_wCRraAk-eiYyEeYA6E",
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECERT,
     }),
   ],
   callbacks: {

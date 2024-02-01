@@ -28,9 +28,11 @@ module.exports = withTM(
         ];
       },
       env: {
+        NEXTAUTH_URL: process.env.NEXTAUTH_URL,
         SERVER: process.env.FINAL,
-        MONGODB_URI:
-          "mongodb+srv://devanshsingh0808:Test1234@cluster0.knyitls.mongodb.net/sample_guides?retryWrites=true&w=majority",
+        GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+        GOOGLE_CLIENT_SECERT: process.env.GOOGLE_CLIENT_SECERT,
+        MONGODB_URI: process.env.MONGODB_URI,
       },
     },
     {
